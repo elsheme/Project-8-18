@@ -1,0 +1,211 @@
+Index: code/dataset.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import os\r\nimport cv2\r\nimport random\r\nimport numpy as np\r\nimport matplotlib.pyplot as plt\r\nfrom tensorflow.keras.utils import to_categorical\r\nfrom sklearn.model_selection import train_test_split\r\nimport os\r\n\r\nos.system(\"clear\")\r\n\r\n\r\nBASE_PATH = \"../Datasets/\"\r\nIMG_SIZE = (128, 128)\r\nAUGMENT = True\r\n\r\n\r\n\r\ndef preprocess_image(img_path):\r\n    img = cv2.imread(img_path)\r\n    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)\r\n    img = cv2.resize(img, IMG_SIZE)\r\n    img = img / 255.0\r\n    return img\r\n\r\n\r\ndef augment_image(img):\r\n    if np.random.rand() < 0.5:\r\n        img = cv2.flip(img, 1)\r\n\r\n    if np.random.rand() < 0.3:\r\n        angle = np.random.randint(-20, 20)\r\n        h, w = img.shape[:2]\r\n        M = cv2.getRotationMatrix2D((w//2, h//2), angle, 1)\r\n        img = cv2.warpAffine(img, M, (w, h))\r\n\r\n    if np.random.rand() < 0.4:\r\n        factor = 0.5 + np.random.rand() * 1.0\r\n        img = np.clip(img * factor, 0, 1)\r\n\r\n    return img\r\n\r\n\r\ndef show_example_images():\r\n    if not os.path.exists(BASE_PATH):\r\n        print(f\"The directory {BASE_PATH} doesn't exist.\")\r\n\r\n    classes = sorted(os.listdir(BASE_PATH))\r\n    NUM_IMAGES = 3\r\n\r\n    print(\"**\" * 20)\r\n    print(\" \" * 9, f\"Dataset path: {BASE_PATH}\")\r\n    print(\" \" * 9, f\"Total classes = {len(classes)}\")\r\n    print(\"**\" * 20)\r\n\r\n\r\n    fig, ax = plt.subplots(nrows=len(classes), ncols=NUM_IMAGES, figsize=(10, 30))\r\n\r\n    for p, c in enumerate(classes):\r\n        total_images_class = len(os.listdir(BASE_PATH +c))\r\n        print(f\"* {c} => {total_images_class} images\")\r\n\r\n        imgs = os.listdir(os.path.join(BASE_PATH, c))\r\n        selected = random.choices(imgs, k=NUM_IMAGES)\r\n\r\n        for i, img_name in enumerate(selected):\r\n            img_path = os.path.join(BASE_PATH, c, img_name)\r\n            img_bgr = cv2.imread(img_path)\r\n            img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)\r\n\r\n            ax[p, i].imshow(img_rgb)\r\n            ax[p, i].set_title(f\"{c}\\n{img_rgb.shape}\")\r\n            ax[p, i].axis(\"off\")\r\n\r\n    # plt.tight_layout()\r\n    # fig.show()\r\n\r\n\r\ndef load_dataset():\r\n    X, Y = [], []\r\n\r\n    classes = sorted(os.listdir(BASE_PATH))\r\n    class_to_idx = {cls: idx for idx, cls in enumerate(classes)}\r\n\r\n    print(\"\\nLoading images...\\n\")\r\n\r\n    for cls in classes:\r\n        class_path = os.path.join(BASE_PATH, cls)\r\n        images = os.listdir(class_path)\r\n\r\n        for img_name in images:\r\n            img_path = os.path.join(class_path, img_name)\r\n\r\n            img = preprocess_image(img_path)\r\n\r\n            X.append(img)\r\n            Y.append(class_to_idx[cls])\r\n\r\n    X = np.array(X)\r\n    Y = to_categorical(Y, num_classes=len(classes))\r\n\r\n    print(\"Dataset loaded successfully!\")\r\n    print(f\"Total images: {len(X)}\")\r\n\r\n    # تقسيم البيانات\r\n    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.15, random_state=42)\r\n    X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.15, random_state=42)\r\n\r\n    return X_train, X_val, X_test, y_train, y_val, y_test\r\n\r\n\r\ndef training_generator(X, y, batch_size=32):\r\n    while True:\r\n        idx = np.random.permutation(len(X))\r\n        X = X[idx]\r\n        y = y[idx]\r\n\r\n        for i in range(0, len(X), batch_size):\r\n            batch_X = X[i:i + batch_size].copy()\r\n            batch_y = y[i:i + batch_size]\r\n\r\n            for j in range(len(batch_X)):\r\n                batch_X[j] = augment_image(batch_X[j])\r\n\r\n            yield batch_X, batch_y\r\n\r\n\r\n\r\nif __name__ == \"__main__\":\r\n\r\n    show_example_images()\r\n\r\n    X_train, X_val, X_test, y_train, y_val, y_test = load_dataset()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/code/dataset.py b/code/dataset.py
+--- a/code/dataset.py	(revision 310e9aa0f2d227d6ec46242be0b232e0cd738533)
++++ b/code/dataset.py	(date 1765530389145)
+@@ -1,4 +1,3 @@
+-import os
+ import cv2
+ import random
+ import numpy as np
+@@ -7,7 +6,7 @@
+ from sklearn.model_selection import train_test_split
+ import os
+ 
+-os.system("clear")
++##os.system("clear")
+ 
+ 
+ BASE_PATH = "../Datasets/"
+Index: code/model.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/code/model.py b/code/model.py
+--- a/code/model.py	(revision 310e9aa0f2d227d6ec46242be0b232e0cd738533)
++++ b/code/model.py	(date 1765530389145)
+@@ -1,0 +1,44 @@
++from tensorflow.keras.models import Sequential
++from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
++
++
++def build_model(num_classes=11):
++
++    model = Sequential([
++
++        Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
++        BatchNormalization(),
++        MaxPooling2D(pool_size=(2, 2)),
++
++        Conv2D(64, (3, 3), activation='relu'),
++        BatchNormalization(),
++        MaxPooling2D(pool_size=(2, 2)),
++
++        Conv2D(128, (3, 3), activation='relu'),
++        BatchNormalization(),
++        MaxPooling2D(pool_size=(2, 2)),
++
++        # ===== Flatten + Dense =====
++        Flatten(),
++        Dense(256, activation='relu'),
++        Dropout(0.5),
++
++        # ===== Output Layer =====
++        Dense(num_classes, activation='softmax')
++    ])
++
++    # Compile the model
++    model.compile(
++        optimizer='adam',
++        loss='categorical_crossentropy',
++        metrics=['accuracy']
++    )
++
++    return model
++
++
++# ===== Test the model =====
++if __name__ == "__main__":
++    num_classes = 11
++    model = build_model(num_classes=num_classes)
++    model.summary()
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"b106fc8b-92df-4955-8e3a-19341f63f2d6\" name=\"Changes\" comment=\"&#10;.\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;elsheme&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/elsheme/Project-8-18.git&quot;,\r\n    &quot;accountId&quot;: &quot;5c87baa1-31b8-455e-ad29-7df371478558&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"36RB5cK8XdJjNqQX1EM3Kokrnl6\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,\r\n    &quot;Python.11.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.dataset.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.26830.99\" />\r\n        <option value=\"bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"b106fc8b-92df-4955-8e3a-19341f63f2d6\" name=\"Changes\" comment=\"\" />\r\n      <created>1764959322035</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1764959322035</updated>\r\n      <workItem from=\"1764959323109\" duration=\"17597000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"inti\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1764960138755</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1764960138755</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"dataset is uplode\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1765119852480</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1765119852480</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"data\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1765498218745</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1765498218745</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"data\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1765498257983</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1765498257983</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"&#10;..\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1765498574122</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1765498574122</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"&#10;..\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1765499251681</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1765499251681</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"&#10;.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1765500063669</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1765500063669</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"master\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"inti\" />\r\n    <MESSAGE value=\"dataset is uplode\" />\r\n    <MESSAGE value=\"squash! Add new data\" />\r\n    <MESSAGE value=\"data\" />\r\n    <MESSAGE value=\"&#10;..\" />\r\n    <MESSAGE value=\"&#10;.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"&#10;.\" />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/Project_8_18$11.coverage\" NAME=\"11 Coverage Results\" MODIFIED=\"1765115424576\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$\" />\r\n    <SUITE FILE_PATH=\"coverage/Project_8_18$dataset.coverage\" NAME=\"dataset Coverage Results\" MODIFIED=\"1765119444475\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/code\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 310e9aa0f2d227d6ec46242be0b232e0cd738533)
++++ b/.idea/workspace.xml	(date 1765530389145)
+@@ -4,8 +4,15 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
++<<<<<<< HEAD
+     <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="&#10;.">
++=======
++    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="&#10;..">
++      <change beforePath="$PROJECT_DIR$/.idea/Project-8-18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Project-8-18.iml" afterDir="false" />
++>>>>>>> 01c0bccd2d9b3abecefe5b4aaf9aca4d8bb2ec82
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/code/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/dataset.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/code/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/model.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -42,30 +49,31 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+-    &quot;Python.11.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.dataset.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ModuleVcsDetector.initialDetectionPerformed": "true",
++    "Python.11.executor": "Run",
++    "Python.dataset.executor": "Run",
++    "Python.model.executor": "Run",
++    "Python.train.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "git-widget-placeholder": "master",
++    "junie.onboarding.icon.badge.shown": "true",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "to.speed.mode.migration.done": "true",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.26830.99" />
+-        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
++        <option value="bundled-python-sdk-b3d66beaba9a-c6efb3732140-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26199.168" />
+       </set>
+     </attachedChunks>
+   </component>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1765530389145)
++++ b/.idea/misc.xml	(date 1765530389145)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="Python 3.10" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+Index: .idea/dictionaries/project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dictionaries/project.xml b/.idea/dictionaries/project.xml
+new file mode 100644
+--- /dev/null	(date 1765530389145)
++++ b/.idea/dictionaries/project.xml	(date 1765530389145)
+@@ -0,0 +1,7 @@
++<component name="ProjectDictionaryState">
++  <dictionary name="project">
++    <words>
++      <w>crossentropy</w>
++    </words>
++  </dictionary>
++</component>
+\ No newline at end of file
+Index: .idea/Project-8-18.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.13 (Project-8-18)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Project-8-18.iml b/.idea/Project-8-18.iml
+--- a/.idea/Project-8-18.iml	(revision 310e9aa0f2d227d6ec46242be0b232e0cd738533)
++++ b/.idea/Project-8-18.iml	(date 1765530389145)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.13 (Project-8-18)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
