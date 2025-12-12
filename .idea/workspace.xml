@@ -4,195 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="dataset is uplode">
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666262736935.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666262795768.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666263096717.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666263114412.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666263259711.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666265301384.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666265408473.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1666265483371.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847223678.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847280489.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847459689.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847514169.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847571819.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847591231.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847768992.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667847795932.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667848119140.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667848128546.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667848309752.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667848319540.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667848362077.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667851907663.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667851912493.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667852071391.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667852114343.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667852164325.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667852290529.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667852326614.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_new/IMG_1667852497948.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1666262244525.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1666262250511.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1666262526581.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1666262651335.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1666263381194.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1666265821940.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667886534060.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667886814301.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667886837199.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667886913700.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887006269.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887036428.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887094865.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887136814.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887161663.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887202440.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887312014.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/fifty_old/IMG_1667887412809.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667849774454.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667851177412.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667851700476.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667851768697.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667886228757.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667886267871.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667886791930.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667888740858.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667888843637.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667889121240.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667891160630.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667891374634.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667891516726.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667891918821.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667892023466.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667892161218.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/five_hundred/IMG_1667892216019.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1666270220286.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1666270421980.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667898592793.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667898875671.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667899229602.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667899271928.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667899621372.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667899706057.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667899857509.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667900028781.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667900319568.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667901235543.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667901319209.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667902072897.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_new/IMG_1667902099819.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_old/IMG_1666266566906.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_old/IMG_1666270721989.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/hundred_old/IMG_1666270732198.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1666262016324.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667831833473.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667831935590.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667832440529.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667833604515.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667833761866.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667833781763.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667833908447.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667834112888.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667834555721.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843024976.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843077556.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843315327.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843330453.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843396918.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843431091.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843438457.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843441540.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843484294.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843576970.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667843638548.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667891655603.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667891818363.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667891825867.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667891947445.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_new/IMG_1667892147292.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1666263921352.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1666264355120.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667831596514.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667831637763.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667832648945.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667832672628.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667832727323.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667832961217.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667833163957.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667843173728.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667843194290.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667843257338.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667890273031.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667890472063.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667890595005.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667890880223.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667891109965.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667891200139.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667891215999.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/ten_old/IMG_1667891238959.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1666263566157.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1666264316723.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1666264517077.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667839812957.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667839993447.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840065307.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840341726.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840402295.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840421974.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840677338.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840680979.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840882728.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667840954968.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667841004056.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_new/IMG_1667841040630.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1666262767019.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1666263098561.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839307305.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839449442.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839473229.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839557737.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839580523.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839604397.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667839648830.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667841641686.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667841813131.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667842561558.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667842611579.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667842662882.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667842749873.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667842776716.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/twenty_old/IMG_1667842782064.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1666267671119.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1666267747461.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1666267781923.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1666267957686.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667833201320.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667833798690.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667833852578.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667833930488.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667835764449.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667835865222.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667836010783.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667849321760.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667888004604.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667888008122.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667888073636.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667888137116.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667888141550.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_hundred/IMG_1667888170311.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667829655157.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667829708026.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667829719253.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667830025161.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667830118711.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667830209723.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667830557195.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667830571496.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Datasets/two_thousand/IMG_1667830745076.jpg" afterDir="false" />
-    </list>
+    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="dataset is uplode" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,45 +20,45 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "elsheme"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;elsheme&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/elsheme/Project-8-18.git",
-    "accountId": "5c87baa1-31b8-455e-ad29-7df371478558"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/elsheme/Project-8-18.git&quot;,
+    &quot;accountId&quot;: &quot;5c87baa1-31b8-455e-ad29-7df371478558&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="36RB5cK8XdJjNqQX1EM3Kokrnl6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.11.executor": "Run",
-    "Python.dataset.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.11.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dataset.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -312,7 +124,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="inti" />
     <MESSAGE value="dataset is uplode" />
-    <option name="LAST_COMMIT_MESSAGE" value="dataset is uplode" />
+    <MESSAGE value="squash! Add new data" />
+    <option name="LAST_COMMIT_MESSAGE" value="squash! Add new data" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Project_8_18$11.coverage" NAME="11 Coverage Results" MODIFIED="1765115424576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
