@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="dataset is uplode" />
+    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="&#10;..">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,7 +94,31 @@
       <option name="project" value="LOCAL" />
       <updated>1765119852480</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="data">
+      <option name="closed" value="true" />
+      <created>1765498218745</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1765498218745</updated>
+    </task>
+    <task id="LOCAL-00004" summary="data">
+      <option name="closed" value="true" />
+      <created>1765498257983</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1765498257983</updated>
+    </task>
+    <task id="LOCAL-00005" summary="&#10;..">
+      <option name="closed" value="true" />
+      <created>1765498574122</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1765498574122</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,7 +151,9 @@
     <MESSAGE value="inti" />
     <MESSAGE value="dataset is uplode" />
     <MESSAGE value="squash! Add new data" />
-    <option name="LAST_COMMIT_MESSAGE" value="squash! Add new data" />
+    <MESSAGE value="data" />
+    <MESSAGE value="&#10;.." />
+    <option name="LAST_COMMIT_MESSAGE" value="&#10;.." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Project_8_18$11.coverage" NAME="11 Coverage Results" MODIFIED="1765115424576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
