@@ -1,0 +1,14 @@
+code/Datasets/
+
+
+*.pyc
+__pycache__/
+venv/
+.venv/
+
+
+.idea/
+
+
+*.h5
+saved_model/

@@ -40,5 +40,8 @@ def build_model(num_classes=11):
 # ===== Test the model =====
 if __name__ == "__main__":
     num_classes = 11
+    num_classes2 = 11
     model = build_model(num_classes=num_classes)
+    model2 = build_model(num_classes=num_classes2)
+
     model.summary()
