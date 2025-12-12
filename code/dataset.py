@@ -1,4 +1,3 @@
-import os
 import cv2
 import random
 import numpy as np
@@ -7,7 +6,7 @@ from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 import os
 
-os.system("clear")
+##os.system("clear")
 
 
 BASE_PATH = "../Datasets/"
