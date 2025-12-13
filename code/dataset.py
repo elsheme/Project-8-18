@@ -9,9 +9,9 @@ import os
 ##os.system("clear")
 
 
-BASE_PATH = "../Datasets/"
-IMG_SIZE = (128, 128)
-AUGMENT = True
+BASE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../Datasets/")
+IMG_SIZE = (96, 96)
+AUGMENT = False
 
 
 
