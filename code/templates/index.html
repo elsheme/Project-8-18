@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصنيف العملات - نموذج Stacking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #imageUpload {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            width: calc(100% - 22px);
+        }
+        #submitBtn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        #submitBtn:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e9ecef;
+            text-align: left;
+        }
+        #preview {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>تصنيف العملات باستخدام نموذج Stacking</h1>
+
+        <input type="file" id="imageUpload" accept="image/*">
+        <button id="submitBtn">تصنيف الصورة</button>
+
+        <img id="preview" src="#" alt="صورة المعاينة">
+
+        <div id="result">
+            <p><strong>النتيجة:</strong> سيتم عرض النتيجة هنا.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const preview = document.getElementById('preview');
+            const file = event.target.files[0];
+
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            const fileInput = document.getElementById('imageUpload');
+            const resultDiv = document.getElementById('result');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                resultDiv.innerHTML = '<p style="color: red;"><strong>النتيجة:</strong> الرجاء اختيار صورة أولاً.</p>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<p><strong>النتيجة:</strong> جاري التصنيف...</p>';
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p style="color: green;"><strong>✅ تم التصنيف بنجاح!</strong></p>
+                        <p><strong>الفئة المتوقعة:</strong> ${data.class}</p>
+                        <p><strong>الثقة:</strong> ${data.confidence}</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;"><strong>خطأ في التصنيف:</strong> ${data.error || 'حدث خطأ غير معروف.'}</p>`;
+                }
+
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;"><strong>خطأ في الاتصال:</strong> فشل الاتصال بالخادم.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
