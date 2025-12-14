@@ -13,7 +13,7 @@ def main():
     print("Test and evaluate model")
     print("=" * 70)
 
-    print("\n📥 Load data")
+    print("\n Load data")
     try:
         X_train, X_val, X_test, y_train, y_val, y_test = load_dataset()
     except Exception as e:
@@ -24,14 +24,14 @@ def main():
     model = load_model('trained_model_high_acc')
 
     if model is None:
-        print("❌ لم يتم العثور على النموذج المدرب!")
+        print(" لم يتم العثور على النموذج المدرب!")
         print("   تأكد من تشغيل train.py أولاً")
         return
 
     class_names = [str(i) for i in range(y_test.shape[1])]
     print(f"✓ وجدت {len(class_names)} فئات")
 
-    print("\n📊 تقييم النموذج على بيانات الاختبار...")
+    print("\n تقييم النموذج على بيانات الاختبار...")
     print("-" * 70)
 
     try:
