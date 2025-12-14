@@ -7,7 +7,6 @@ from tensorflow.keras.utils import to_categorical
 BASE_PATH = os.path.join(os.path.dirname(__file__), "../Datasets")
 IMG_SIZE = (128, 128)
 
-
 def load_image(path):
     img = cv2.imread(path)
     if img is None:
@@ -15,7 +14,6 @@ def load_image(path):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, IMG_SIZE)
     return img.astype(np.float32)
-
 
 def load_dataset():
     X, y = [], []
@@ -46,21 +44,10 @@ def load_dataset():
 
     return X_train, X_val, X_test, y_train, y_val, y_test
 
-
 def training_generator(X, y, batch_size=32):
     while True:
         idx = np.random.permutation(len(X))
         for i in range(0, len(X), batch_size):
-            batch_x = X[idx[i:i + batch_size]].copy()
+            batch_x = X[idx[i:i + batch_size]]
             batch_y = y[idx[i:i + batch_size]]
-
-            for j in range(len(batch_x)):
-                if np.random.rand() < 0.5:
-                    batch_x[j] = cv2.flip(batch_x[j], 1)
-
-                if np.random.rand() < 0.2:
-                    angle = np.random.uniform(-10, 10)
-                    M = cv2.getRotationMatrix2D((64, 64), angle, 1)
-                    batch_x[j] = cv2.warpAffine(batch_x[j], M, IMG_SIZE)
-
             yield batch_x, batch_y
