@@ -1,47 +1,56 @@
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
+import tensorflow as tf
+from tensorflow.keras import layers, models
+from tensorflow.keras.applications import MobileNetV2
 
+def build_model(num_classes, input_shape=(128, 128, 3)):
+    inputs = tf.keras.Input(shape=input_shape)
 
-def build_model(num_classes=11):
+    x = layers.RandomFlip("horizontal")(inputs)
+    x = layers.RandomRotation(0.1)(x)
+    x = layers.RandomZoom(0.1)(x)
+    x = layers.RandomContrast(0.1)(x)
 
-    model = Sequential([
+    x = tf.keras.applications.mobilenet_v2.preprocess_input(x)
 
-        Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
-        BatchNormalization(),
-        MaxPooling2D(pool_size=(2, 2)),
+    base_model = MobileNetV2(
+        input_shape=input_shape,
+        include_top=False,
+        weights="imagenet",
+        alpha=1.0
+    )
 
-        Conv2D(64, (3, 3), activation='relu'),
-        BatchNormalization(),
-        MaxPooling2D(pool_size=(2, 2)),
+    base_model.trainable = False
 
-        Conv2D(128, (3, 3), activation='relu'),
-        BatchNormalization(),
-        MaxPooling2D(pool_size=(2, 2)),
+    x = base_model(x, training=False)
+    x = layers.GlobalAveragePooling2D()(x)
+    x = layers.BatchNormalization()(x)
 
-        # ===== Flatten + Dense =====
-        Flatten(),
-        Dense(256, activation='relu'),
-        Dropout(0.5),
+    x = layers.Dense(512, activation="relu")(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Dropout(0.4)(x)
 
-        # ===== Output Layer =====
-        Dense(num_classes, activation='softmax')
-    ])
+    outputs = layers.Dense(num_classes, activation="softmax")(x)
 
-    # Compile the model
+    model = models.Model(inputs, outputs)
+
     model.compile(
-        optimizer='adam',
-        loss='categorical_crossentropy',
-        metrics=['accuracy']
+        optimizer=tf.keras.optimizers.Adam(1e-3),
+        loss="categorical_crossentropy",
+        metrics=["accuracy"]
+    )
+
+    return model, base_model
+
+def fine_tune_model(model, base_model, fine_tune_layers=40):
+    base_model.trainable = True
+
+    for layer in base_model.layers[:-fine_tune_layers]:
+        layer.trainable = False
+
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(1e-5),
+        loss="categorical_crossentropy",
+        metrics=["accuracy"]
     )
 
     return model
-
-
-# ===== Test the model =====
-if __name__ == "__main__":
-    num_classes = 11
-    num_classes2 = 11
-    model = build_model(num_classes=num_classes)
-    model2 = build_model(num_classes=num_classes2)
-
-    model.summary()

@@ -1,60 +1,77 @@
 import os
 import dataset
 import model
-import tensorflow as tf
-import numpy as np
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+from tensorflow.keras.optimizers import Adam
 
-def train_and_save():
-    # 1. Load Dataset
+def train():
     print("Loading dataset...")
-    # X_train, X_val, X_test, y_train, y_val, y_test
-    data = dataset.load_dataset()
-    X_train, X_val, X_test, y_train, y_val, y_test = data
-    
+    X_train, X_val, X_test, y_train, y_val, y_test = dataset.load_dataset()
+
     num_classes = y_train.shape[1]
-    print(f"Number of classes: {num_classes}")
-    print(f"Training samples: {len(X_train)}")
-    print(f"Validation samples: {len(X_val)}")
-    
-    # 2. Build Model
     print("Building model...")
-    keras_model = model.build_model(num_classes=num_classes)
-    
-    # 3. Train Model
-    BATCH_SIZE = 32
-    EPOCHS = 20 
-    
-    print("Starting training...")
-    # Use the generator for training data defined in dataset.py
-    train_gen = dataset.training_generator(X_train, y_train, batch_size=BATCH_SIZE)
-    
-    history = keras_model.fit(
-        train_gen,
-        steps_per_epoch=max(1, len(X_train) // BATCH_SIZE),
-        epochs=EPOCHS,
-        validation_data=(X_val, y_val)
+
+    # بناء الموديل الأساسي
+    net, base_model = model.build_model(num_classes)
+
+    # إعدادات التوقف المبكر وتقليل معدل التعلم
+    # زودنا الـ Patience شوية عشان نديله فرصة يتعلم
+    callbacks = [
+        EarlyStopping(
+            monitor="val_accuracy",
+            patience=6,
+            restore_best_weights=True,
+            verbose=1
+        ),
+        ReduceLROnPlateau(
+            monitor="val_loss",
+            patience=3,
+            factor=0.2,
+            min_lr=1e-7,
+            verbose=1
+        )
+    ]
+
+    print("=== Phase 1: Training head layers only ===")
+    # المرحلة الأولى: تدريب سريع للطبقات الأخيرة فقط
+    net.fit(
+        dataset.training_generator(X_train, y_train),
+        steps_per_epoch=len(X_train) // 32,
+        epochs=12,  # كفاية 12 هنا لأننا هنكمل تحت
+        validation_data=(X_val, y_val),
+        callbacks=callbacks
     )
-    
-    # 4. Save Model
-    # User requested saving in "Saved-model" folder.
-    # dataset.py uses BASE_PATH = "../Datasets/", so we are running from 'code' directory.
-    # We will create "../Saved-model" to be consistent with the project structure.
-    # Function to get the correct base path regardless of where the script is run
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    save_dir = os.path.join(script_dir, "..", "Saved_model")
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
-        print(f"Created directory: {save_dir}")
-        
-    model_name = "trained_model.h5"
-    model_path = os.path.join(save_dir, model_name)
-    keras_model.save(model_path)
-    print(f"Model saved to {model_path}")
-    
-    # 5. Evaluate on test set
-    print("Evaluating on test set...")
-    loss, acc = keras_model.evaluate(X_test, y_test)
-    print(f"Test Accuracy: {acc*100:.2f}%")
+
+    print("\n=== Phase 2: Fine-tuning last layers (Crucial for >90%) ===")
+    # المرحلة الثانية: فك تجميد جزء من الموديل عشان نعلي الدقة
+    # بنعمل Unfreeze لأخر 50 طبقة مثلاً عشان يحفظ التفاصيل
+    base_model.trainable = True
+    for layer in base_model.layers[:-50]:
+        layer.trainable = False
+
+    # لازم نعيد الـ Compile بمعدل تعلم واطي جداً عشان الدقة تزيد بنعومة
+    net.compile(
+        optimizer=Adam(learning_rate=1e-5), # معدل بطيء جداً للدقة العالية
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
+
+    net.fit(
+        dataset.training_generator(X_train, y_train),
+        steps_per_epoch=len(X_train) // 32,
+        epochs=20, # سيبه ياخد وقته هنا، الـ EarlyStopping هيوقفه لو مفيش فايدة
+        validation_data=(X_val, y_val),
+        callbacks=callbacks
+    )
+
+    print("\nEvaluating on test set...")
+    loss, acc = net.evaluate(X_test, y_test)
+    print(f"Final Test Accuracy: {acc * 100:.2f}%")
+
+    save_dir = os.path.join(os.path.dirname(__file__), "..", "Saved_model")
+    os.makedirs(save_dir, exist_ok=True)
+    net.save(os.path.join(save_dir, "trained_model_high_acc.keras"))
+    print("Model saved successfully.")
 
 if __name__ == "__main__":
-    train_and_save()
+    train()
