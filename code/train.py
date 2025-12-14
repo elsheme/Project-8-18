@@ -1,77 +1,97 @@
-import os
-import dataset
-import model
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+import tensorflow as tf
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from datasete import load_dataset, training_generator
+from model import build_model
+import numpy as np
 
-def train():
-    print("Loading dataset...")
-    X_train, X_val, X_test, y_train, y_val, y_test = dataset.load_dataset()
+BATCH_SIZE = 32
+EPOCHS = 50
+LR = 1e-4
 
-    num_classes = y_train.shape[1]
-    print("Building model...")
+MODEL_CHECKPOINT_PATH = './best_egypt_9_classes_v2.keras'
 
-    # بناء الموديل الأساسي
-    net, base_model = model.build_model(num_classes)
 
-    # إعدادات التوقف المبكر وتقليل معدل التعلم
-    # زودنا الـ Patience شوية عشان نديله فرصة يتعلم
-    callbacks = [
-        EarlyStopping(
-            monitor="val_accuracy",
-            patience=6,
-            restore_best_weights=True,
-            verbose=1
-        ),
-        ReduceLROnPlateau(
-            monitor="val_loss",
-            patience=3,
-            factor=0.2,
-            min_lr=1e-7,
-            verbose=1
-        )
-    ]
+def train_enhanced_model():
+    X_train, X_val, X_test, Y_train, Y_val, Y_test = load_dataset()
 
-    print("=== Phase 1: Training head layers only ===")
-    # المرحلة الأولى: تدريب سريع للطبقات الأخيرة فقط
-    net.fit(
-        dataset.training_generator(X_train, y_train),
-        steps_per_epoch=len(X_train) // 32,
-        epochs=12,  # كفاية 12 هنا لأننا هنكمل تحت
-        validation_data=(X_val, y_val),
-        callbacks=callbacks
-    )
+    NUM_CLASSES = Y_train.shape[1]
 
-    print("\n=== Phase 2: Fine-tuning last layers (Crucial for >90%) ===")
-    # المرحلة الثانية: فك تجميد جزء من الموديل عشان نعلي الدقة
-    # بنعمل Unfreeze لأخر 50 طبقة مثلاً عشان يحفظ التفاصيل
-    base_model.trainable = True
-    for layer in base_model.layers[:-50]:
-        layer.trainable = False
+    if len(X_train) == 0:
+        print("FATAL ERROR: Training data is empty.")
+        return
 
-    # لازم نعيد الـ Compile بمعدل تعلم واطي جداً عشان الدقة تزيد بنعومة
-    net.compile(
-        optimizer=Adam(learning_rate=1e-5), # معدل بطيء جداً للدقة العالية
+    print(f"Total training samples: {len(X_train)}")
+    print(f"Number of classes detected: {NUM_CLASSES}")
+    print("Building and compiling the enhanced 9-class model...")
+
+    master_model = build_model()
+
+    for layer in master_model.layers:
+        if layer.name.startswith('mobilenetv2'):
+            layer.trainable = False
+
+    master_model.compile(
+        optimizer=Adam(learning_rate=LR),
         loss='categorical_crossentropy',
         metrics=['accuracy']
     )
 
-    net.fit(
-        dataset.training_generator(X_train, y_train),
-        steps_per_epoch=len(X_train) // 32,
-        epochs=20, # سيبه ياخد وقته هنا، الـ EarlyStopping هيوقفه لو مفيش فايدة
-        validation_data=(X_val, y_val),
+    callbacks = [
+        ModelCheckpoint(MODEL_CHECKPOINT_PATH, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max'),
+        EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode='min', restore_best_weights=True),
+        ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, verbose=1, mode='min', min_lr=1e-7)
+    ]
+
+    print("Starting training (Phase 1: Frozen MobileNetV2)...")
+    history = master_model.fit(
+        training_generator(X_train, Y_train, BATCH_SIZE),
+        steps_per_epoch=len(X_train) // BATCH_SIZE,
+        epochs=10,
+        validation_data=(X_val, Y_val),
         callbacks=callbacks
     )
 
-    print("\nEvaluating on test set...")
-    loss, acc = net.evaluate(X_test, y_test)
-    print(f"Final Test Accuracy: {acc * 100:.2f}%")
+    print("\nStarting Fine-Tuning (Phase 2: Unfreezing lower layers)...")
 
-    save_dir = os.path.join(os.path.dirname(__file__), "..", "Saved_model")
-    os.makedirs(save_dir, exist_ok=True)
-    net.save(os.path.join(save_dir, "trained_model_high_acc.keras"))
-    print("Model saved successfully.")
+    base_mobilenet = None
+    for layer in master_model.layers:
+        if isinstance(layer, tf.keras.Model) and layer.name.startswith('mobilenetv2'):
+            base_mobilenet = layer
+            break
+
+    if base_mobilenet:
+        print(f"Found base model: {base_mobilenet.name}. Preparing for fine-tuning...")
+        base_mobilenet.trainable = True
+
+        for layer in base_mobilenet.layers[:100]:
+            layer.trainable = False
+        for layer in base_mobilenet.layers[100:]:
+            layer.trainable = True
+
+        print(f"Unfroze layers from index 100 to {len(base_mobilenet.layers) - 1} for fine-tuning.")
+    else:
+        print("Warning: MobileNetV2 sub-model not found. Skipping fine-tuning setup.")
+
+    master_model.compile(
+        optimizer=Adam(learning_rate=LR / 10),
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
+
+    history_fine_tune = master_model.fit(
+        training_generator(X_train, Y_train, BATCH_SIZE),
+        steps_per_epoch=len(X_train) // BATCH_SIZE,
+        epochs=EPOCHS,
+        initial_epoch=history.epoch[-1] if history.epoch else 10,
+        validation_data=(X_val, Y_val),
+        callbacks=callbacks
+    )
+
+    print("\nFinal Evaluation...")
+    loss, acc = master_model.evaluate(X_test, Y_test, verbose=0)
+    print(f"Test Accuracy ({NUM_CLASSES} Classes): {acc * 100:.2f}%")
+
 
 if __name__ == "__main__":
-    train()
+    train_enhanced_model()
