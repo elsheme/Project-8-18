@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="10">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/train.py" afterDir="false" />
-    </list>
+    <list default="true" id="b106fc8b-92df-4955-8e3a-19341f63f2d6" name="Changes" comment="update model to improve accuracy" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765558916126</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="update model to improve accuracy">
+      <option name="closed" value="true" />
+      <created>1765680214690</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765680214690</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +228,8 @@
     <MESSAGE value="8" />
     <MESSAGE value="9" />
     <MESSAGE value="10" />
-    <option name="LAST_COMMIT_MESSAGE" value="10" />
+    <MESSAGE value="update model to improve accuracy" />
+    <option name="LAST_COMMIT_MESSAGE" value="update model to improve accuracy" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Project_8_18$datasete.coverage" NAME="datasete Coverage Results" MODIFIED="1765576173846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/code" />
