@@ -1,47 +1,55 @@
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
+import tensorflow as tf
+from tensorflow.keras import layers, models
+from tensorflow.keras.applications import MobileNetV2
 
 
-def build_model(num_classes=11):
+def build_model(num_classes, input_shape=(128, 128, 3)):
+    base_model = MobileNetV2(
+        input_shape=input_shape,
+        include_top=False,
+        weights="imagenet",
+        alpha=0.35
+    )
 
-    model = Sequential([
+    # Freeze base model (important for CPU)
+    base_model.trainable = False
 
-        Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 3)),
-        BatchNormalization(),
-        MaxPooling2D(pool_size=(2, 2)),
+    inputs = tf.keras.Input(shape=input_shape)
 
-        Conv2D(64, (3, 3), activation='relu'),
-        BatchNormalization(),
-        MaxPooling2D(pool_size=(2, 2)),
+    # ✅ MobileNet preprocessing (DO NOT scale images manually)
+    x = tf.keras.applications.mobilenet_v2.preprocess_input(inputs)
 
-        Conv2D(128, (3, 3), activation='relu'),
-        BatchNormalization(),
-        MaxPooling2D(pool_size=(2, 2)),
+    x = base_model(x, training=False)
+    x = layers.GlobalAveragePooling2D()(x)
+    x = layers.BatchNormalization()(x)
 
-        # ===== Flatten + Dense =====
-        Flatten(),
-        Dense(256, activation='relu'),
-        Dropout(0.5),
+    x = layers.Dense(256, activation="relu")(x)
+    x = layers.Dropout(0.5)(x)
 
-        # ===== Output Layer =====
-        Dense(num_classes, activation='softmax')
-    ])
+    outputs = layers.Dense(num_classes, activation="softmax")(x)
 
-    # Compile the model
+    model = models.Model(inputs, outputs)
+
     model.compile(
-        optimizer='adam',
-        loss='categorical_crossentropy',
-        metrics=['accuracy']
+        optimizer=tf.keras.optimizers.Adam(1e-4),
+        loss="categorical_crossentropy",
+        metrics=["accuracy"]
+    )
+
+    return model, base_model
+
+
+def fine_tune_model(model, base_model, fine_tune_layers=15):
+    # Fine-tune only last layers (CPU-friendly)
+    base_model.trainable = True
+
+    for layer in base_model.layers[:-fine_tune_layers]:
+        layer.trainable = False
+
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(1e-5),
+        loss="categorical_crossentropy",
+        metrics=["accuracy"]
     )
 
     return model
-
-
-# ===== Test the model =====
-if __name__ == "__main__":
-    num_classes = 11
-    num_classes2 = 11
-    model = build_model(num_classes=num_classes)
-    model2 = build_model(num_classes=num_classes2)
-
-    model.summary()

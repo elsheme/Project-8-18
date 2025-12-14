@@ -1,60 +1,62 @@
 import os
 import dataset
 import model
-import tensorflow as tf
-import numpy as np
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 
-def train_and_save():
-    # 1. Load Dataset
+
+def train():
     print("Loading dataset...")
-    # X_train, X_val, X_test, y_train, y_val, y_test
-    data = dataset.load_dataset()
-    X_train, X_val, X_test, y_train, y_val, y_test = data
-    
+    X_train, X_val, X_test, y_train, y_val, y_test = dataset.load_dataset()
+
     num_classes = y_train.shape[1]
-    print(f"Number of classes: {num_classes}")
-    print(f"Training samples: {len(X_train)}")
-    print(f"Validation samples: {len(X_val)}")
-    
-    # 2. Build Model
     print("Building model...")
-    keras_model = model.build_model(num_classes=num_classes)
-    
-    # 3. Train Model
-    BATCH_SIZE = 32
-    EPOCHS = 20 
-    
-    print("Starting training...")
-    # Use the generator for training data defined in dataset.py
-    train_gen = dataset.training_generator(X_train, y_train, batch_size=BATCH_SIZE)
-    
-    history = keras_model.fit(
-        train_gen,
-        steps_per_epoch=max(1, len(X_train) // BATCH_SIZE),
-        epochs=EPOCHS,
-        validation_data=(X_val, y_val)
+
+    net, base_model = model.build_model(num_classes)
+
+    callbacks = [
+        EarlyStopping(
+            monitor="val_accuracy",
+            patience=4,
+            restore_best_weights=True
+        ),
+        ReduceLROnPlateau(
+            monitor="val_loss",
+            patience=2,
+            factor=0.5,
+            min_lr=1e-6
+        )
+    ]
+
+    print("Training head layers only...")
+    net.fit(
+        dataset.training_generator(X_train, y_train),
+        steps_per_epoch=len(X_train) // 32,
+        epochs=15,
+        validation_data=(X_val, y_val),
+        callbacks=callbacks
     )
-    
-    # 4. Save Model
-    # User requested saving in "Saved-model" folder.
-    # dataset.py uses BASE_PATH = "../Datasets/", so we are running from 'code' directory.
-    # We will create "../Saved-model" to be consistent with the project structure.
-    # Function to get the correct base path regardless of where the script is run
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    save_dir = os.path.join(script_dir, "..", "Saved_model")
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
-        print(f"Created directory: {save_dir}")
-        
-    model_name = "trained_model.h5"
-    model_path = os.path.join(save_dir, model_name)
-    keras_model.save(model_path)
-    print(f"Model saved to {model_path}")
-    
-    # 5. Evaluate on test set
+
+    print("Fine-tuning last layers...")
+    net = model.fine_tune_model(net, base_model, fine_tune_layers=15)
+
+    net.fit(
+        dataset.training_generator(X_train, y_train),
+        steps_per_epoch=len(X_train) // 32,
+        epochs=10,
+        validation_data=(X_val, y_val),
+        callbacks=callbacks
+    )
+
     print("Evaluating on test set...")
-    loss, acc = keras_model.evaluate(X_test, y_test)
-    print(f"Test Accuracy: {acc*100:.2f}%")
+    loss, acc = net.evaluate(X_test, y_test)
+    print(f"Final Test Accuracy: {acc * 100:.2f}%")
+
+    # Save model
+    save_dir = os.path.join(os.path.dirname(__file__), "..", "Saved_model")
+    os.makedirs(save_dir, exist_ok=True)
+    net.save(os.path.join(save_dir, "trained_model.keras"))
+    print("Model saved successfully.")
+
 
 if __name__ == "__main__":
-    train_and_save()
+    train()
